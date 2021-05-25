@@ -1,0 +1,126 @@
+%{
+	#include <iostream>
+	#include "output.hpp"
+
+    using namespace std;
+	using namespace output;
+
+    int yylex();
+	extern int yylineno;
+    void yyerror(char const*);
+
+%}
+////////////TODO ASK DANIAL///////////////
+%nonassoc VOID INT BYTE B BOOL TRUE FALSE
+ 	   RETURN WHILE BREAK CONTINUE SWITCH DEFAULT COLON SC 
+       COMMA ID NUM STRING LBRACE RBRACE IF CASE HELSE
+%nonassoc ELSE
+%right ASSIGN
+%left OR
+%left AND
+%left EQUALITY
+%nonassoc RELOP
+%left ADDSUB
+%left MULTDIV
+%right NOT
+%left LPAREN RPAREN
+
+%%
+
+Program : Funcs 												        {printProductionRule(1);}
+;
+
+Funcs :	/*epsilon*/													        {printProductionRule(2);}
+	  | FuncDecl Funcs 														{printProductionRule(3);}
+;
+
+FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE 		{printProductionRule(4);}
+;
+
+RetType : Type 																{printProductionRule(5);}
+		| VOID 																{printProductionRule(6);}
+;
+
+Formals : /*epsilon*/														{printProductionRule(7);}
+		| FormalsList 														{printProductionRule(8);}
+;
+
+FormalsList : FormalDecl 													{printProductionRule(9);}
+			| FormalDecl COMMA FormalsList 									{printProductionRule(10);}
+;
+
+FormalDecl : Type ID 														{printProductionRule(11);}
+;
+
+Statements : Statment 														{printProductionRule(12);}
+		   | Statements Statment 											{printProductionRule(13);}
+;
+
+Statment : LBRACE Statements RBRACE 										{printProductionRule(14);}
+		 | Type ID SC 														{printProductionRule(15);}
+		 | Type ID ASSIGN Exp SC 											{printProductionRule(16);}
+		 | ID ASSIGN Exp SC 												{printProductionRule(17);}
+		 | Call SC 															{printProductionRule(18);}
+		 | RETURN SC 														{printProductionRule(19);}
+		 | RETURN Exp SC 													{printProductionRule(20);}
+		 | IF LPAREN Exp RPAREN Statment %prec HELSE 									{printProductionRule(21);}
+		 | IF LPAREN Exp RPAREN Statment ELSE Statment  						{printProductionRule(22);}
+		 | WHILE LPAREN Exp RPAREN Statment 								{printProductionRule(23);}
+		 | BREAK SC 														{printProductionRule(24);}
+		 | CONTINUE SC 														{printProductionRule(25);}
+		 | SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE                  {printProductionRule(26);}
+;
+
+Call : ID LPAREN ExpList RPAREN 											{printProductionRule(27);}
+	 | ID LPAREN RPAREN 													{printProductionRule(28);}
+;
+
+ExpList : Exp 																{printProductionRule(29);}
+		| Exp COMMA ExpList 												{printProductionRule(30);}
+;
+
+Type : INT 																	{printProductionRule(31);}
+	 | BYTE 																{printProductionRule(32);}
+     | BOOL 																{printProductionRule(33);}
+;
+
+
+Exp : LPAREN Exp RPAREN 													{printProductionRule(34);}
+    | Exp ADDSUB Exp 														{printProductionRule(35);}
+    | Exp MULTDIV Exp 														{printProductionRule(35);}
+	| ID 																	{printProductionRule(36);}
+	| Call 																	{printProductionRule(37);}
+	| NUM 																	{printProductionRule(38);}
+	| NUM B 																{printProductionRule(39);}
+	| STRING 																{printProductionRule(40);}
+	| TRUE 																	{printProductionRule(41);}
+	| FALSE 																{printProductionRule(42);}
+	| NOT Exp 																{printProductionRule(43);}
+	| Exp AND Exp 															{printProductionRule(44);}
+	| Exp OR Exp 															{printProductionRule(45);}
+	| Exp RELOP Exp 												    	{printProductionRule(46);}
+	| Exp EQUALITY Exp 												    	{printProductionRule(46);}
+;
+
+CaseList : CaseDecl CaseList	                                            {printProductionRule(48);}
+		 | CaseDecl	                                                        {printProductionRule(49);}
+		 | DEFAULT COLON Statements	                                        {printProductionRule(50);}
+
+CaseDecl : CASE NUM COLON Statements	                                    {printProductionRule(51);}
+
+
+
+%%
+
+
+////////////TODO ASK DANIAL///////////////
+
+int main()
+{
+    return yyparse();
+}
+
+void yyerror(char const* s){
+	errorSyn(yylineno);
+	exit(0);
+}
