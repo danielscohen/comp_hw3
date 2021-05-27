@@ -31,3 +31,61 @@ void printProductionRule(int a) {
 
 }
 
+bool symPrevDefined(std::string name) {
+    for(SymbolTable& table : symTableStack){
+        if(table.existsInTable(name)) return true;
+    }
+    return false;
+}
+
+void defMatchesUse(std::string name, std::string type) {
+    for(SymbolTable& table : symTableStack){
+        if(!table.existsInTable(name)) continue;
+        if(table.isfunction(name)){
+            output::errorUndef(yylineno, name);
+            exit(0);
+        }
+        if(!table.varMatchesDefInTable(name, type)){
+            output::errorMismatch(yylineno);
+            exit(0);
+        }
+    }
+    output::errorMismatch(yylineno);
+    exit(0);
+}
+
+void defMatchesCall(std::string name, std::string retType, std::vector<std::string> pTypes) {
+    for(SymbolTable& table : symTableStack){
+        if(!table.existsInTable(name)) continue;
+        if(!table.isfunction(name)){
+            output::errorUndefFunc(yylineno, name);
+            exit(0);
+        }
+        if(!table.funMatchesDefInTable(name, retType, pTypes)){
+            output::errorPrototypeMismatch(yylineno, name, pTypes);
+            exit(0);
+        }
+    }
+    output::errorUndefFunc(yylineno, name);
+    exit(0);
+}
+
+void prevDefCheck(std::string name) {
+    if(symPrevDefined(name)){
+        output::errorDef(yylineno, name);
+        exit(0);
+    }
+
+
+}
+
+void VarAssignCheck(std::string name, std::string type) {
+    if(!defMatchesUse(name, type)) output::
+
+}
+
+void funCallCheck(std::string name, std::string retType, std::vector<std::string> pTypes) {
+
+}
+
+

@@ -26,13 +26,18 @@ class SymbolTable{
     };
 
     std::map<std::string, SymTableEntry> table;
-    void getParamTypes(ParamList, std::vector<string>&);
+    std::vector<std::string> insertionList;
+    void getParamTypes(ParamList, std::vector<std::string>&);
 
 public:
 
     void printTable();
     void insert(std::string name, std::string type, int offset);
     void insert(std::string name, std::string returnType, std::vector<std::string> pNames, std::vector<std::string> pTypes, int offset);
+    bool existsInTable(std::string name);
+    bool varMatchesDefInTable(std::string name, std::string type);
+    bool funMatchesDefInTable(std::string name, std::string retType, std::vector<std::string> pTypes);
+    bool isfunction(std::string name);
 
 
 

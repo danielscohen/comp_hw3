@@ -1431,7 +1431,7 @@ yyreduce:
 
   case 17:
 #line 70 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(15);}
+    {addVarToSymTable((yyvsp[-2])->text, (yyvsp[-1])->text);}
 #line 1436 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 

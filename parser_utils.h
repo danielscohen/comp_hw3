@@ -7,16 +7,23 @@
 
 #include "symbol_table.h"
 #include <vector>
+#include "parser.tab.hpp"
 
 
 extern std::vector<SymbolTable> symTableStack;
 extern std::vector<int> offsetStack;
+extern int yylineno;
 
-std::string varType(std::string);
+bool symPrevDefined(std::string);
+void defMatchesUse(std::string, std::string);
+void defMatchesCall(std::string, std::string, std::vector<std::string>);
 
 void enterScopeSetup();
 void exitScopeActions();
 void printProductionRule(int a);
+void prevDefCheck(std::string name);
+void VarAssignCheck(std::string name, std::string type);
+void funCallCheck(std::string name, std::string retType, std::vector<std::string> pTypes);
 
 
 void addVarToSymTable(std::string type, std::string name);

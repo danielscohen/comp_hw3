@@ -1,1 +1,1 @@
-int main(){{int x;}}
+int main(){int y;{int x;}int x;}

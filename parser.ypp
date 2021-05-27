@@ -67,7 +67,7 @@ Statements : Statment 														{printProductionRule(12);}
 ;
 
 Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
-		 | Type ID SC 														{printProductionRule(15);}
+		 | Type ID SC 														{addVarToSymTable($1->text, $2->text);}
 		 | Type ID ASSIGN Exp SC 											{printProductionRule(16);}
 		 | ID ASSIGN Exp SC 												{printProductionRule(17);}
 		 | Call SC 															{printProductionRule(18);}
