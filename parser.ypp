@@ -1,6 +1,11 @@
 %{
 	#include <iostream>
-	#include "output.hpp"
+	#include "yystype.h"
+	#include "parser_utils.h"
+	#include "hw3_output.hpp"
+	#include <string>
+	// #define YYDEBUG 1
+	// #define YYERROR_VERBOSE 1
 
     using namespace std;
 	using namespace output;
@@ -11,9 +16,14 @@
 
 %}
 ////////////TODO ASK DANIAL///////////////
+
+/* %union{
+	int val;
+	string text;
+}; */
 %nonassoc VOID INT BYTE B BOOL TRUE FALSE
  	   RETURN WHILE BREAK CONTINUE SWITCH DEFAULT COLON SC 
-       COMMA ID NUM STRING LBRACE RBRACE IF CASE HELSE
+       COMMA LBRACE RBRACE IF CASE HELSE NUM ID STRING
 %nonassoc ELSE
 %right ASSIGN
 %left OR
@@ -49,14 +59,14 @@ FormalsList : FormalDecl 													{printProductionRule(9);}
 			| FormalDecl COMMA FormalsList 									{printProductionRule(10);}
 ;
 
-FormalDecl : Type ID 														{printProductionRule(11);}
+FormalDecl : Type ID 														{addVarToSymTable($1->text, $2->text);}
 ;
 
 Statements : Statment 														{printProductionRule(12);}
 		   | Statements Statment 											{printProductionRule(13);}
 ;
 
-Statment : LBRACE Statements RBRACE 										{printProductionRule(14);}
+Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
 		 | Type ID SC 														{printProductionRule(15);}
 		 | Type ID ASSIGN Exp SC 											{printProductionRule(16);}
 		 | ID ASSIGN Exp SC 												{printProductionRule(17);}
@@ -79,9 +89,9 @@ ExpList : Exp 																{printProductionRule(29);}
 		| Exp COMMA ExpList 												{printProductionRule(30);}
 ;
 
-Type : INT 																	{printProductionRule(31);}
-	 | BYTE 																{printProductionRule(32);}
-     | BOOL 																{printProductionRule(33);}
+Type : INT 																	{$$ = new Type("int");}
+	 | BYTE 																{$$->text = "byte";}
+     | BOOL 																{$$->text = "bool";}
 ;
 
 
@@ -117,7 +127,11 @@ CaseDecl : CASE NUM COLON Statements	                                    {printP
 
 int main()
 {
-    return yyparse();
+	/* yydebug = 1; */
+	enterScopeSetup();
+	int parseRes = yyparse();
+	exitScopeActions();
+    return parseRes;
 }
 
 void yyerror(char const* s){

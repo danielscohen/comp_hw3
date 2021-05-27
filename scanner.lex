@@ -2,8 +2,9 @@
 
 /* Declarations section */
 #include <stdio.h>
+#include "yystype.h"
 #include "parser.tab.hpp"
-#include "output.hpp"
+#include "hw3_output.hpp"
 #include <iostream>
     using namespace std;
 	using namespace output;
@@ -58,9 +59,9 @@ PrintableChars		([\x20-\x7E]|{WhiteSpace})
 (==)|(!=)   return EQUALITY;
 \+|\-                         return ADDSUB;
 \*|\/                         return MULTDIV;
-{Letter}+[0-9a-zA-Z]*	      return ID;
-[1-9]{Digit}*|0			      return NUM;
-\"([^\n\r\"\\]|\\[rnt"\\])+\"       return STRING;
+{Letter}+[0-9a-zA-Z]*	      {yylval = new Id(yytext); return ID;}
+[1-9]{Digit}*|0			      {yylval = new Num(stoi(yytext)); return NUM;}
+\"([^\n\r\"\\]|\\[rnt"\\])+\"  {yylval = new String(yytext); return STRING;}     
 {Whitespace}|(\/\/[^\r\n]*(\r|\n|\r\n)?)				 ;
 .		                    lexError();
 
