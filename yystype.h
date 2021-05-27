@@ -8,17 +8,17 @@
 #include <string>
 
 struct Node {
-    int val;
 
     Node(int val, const std::string &text);
 
-    std::string text;
+    std::string name;
+    std::string type;
+    int val;
 };
 
 struct Num : public Node {
 
     explicit Num(int val);
-
 
 };
 
@@ -29,6 +29,10 @@ struct Id : public Node {
 struct Type : public Node {
     explicit Type(std::string name);
 
+};
+
+struct Exp : public Node {
+    explicit Exp(std::string name);
 };
 
 struct String : public Node {

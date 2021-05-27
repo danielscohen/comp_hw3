@@ -4,10 +4,14 @@
 
 #include "yystype.h"
 
-Num::Num(int val) : Node(val, nullptr) {}
-Id::Id(std::string name) : Node(0, name) {}
-String::String(std::string text) : Node(0, text) {}
+Num::Num(int val) : Node(val, "", "") {}
+Id::Id(std::string name) : Node(0, name, "") {}
+String::String(std::string text) : Node(0, text, "") {}
 Type::Type(std::string name) : Node(0, name) {}
 
 
-Node::Node(int val, const std::string &text) : val(val), text(text) {}
+Node::Node(int val, std::string name, std::string type) : val(val), name(name), type(type) {}
+
+Exp::Exp(std::string name) {
+
+}
