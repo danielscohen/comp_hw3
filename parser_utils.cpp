@@ -102,6 +102,45 @@ void printpNames(std::string pNames) {
 
 }
 
+bool checkNot(YYSTYPE y) {
+    if(y->type != "bool"){
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+    return y->boolVal ? false : true;
+
+}
+
+Node *doBinop(Node *lhs, Node *rhs, std::string op) {
+    std::string lType = lhs->type;
+    std::string rType = rhs->type;
+    int lVal = lhs->val;
+    int rVal = rhs->val;
+    if((rType != "int" && rType != "byte") || (lType != "int" && lType != "byte")){
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+    YYSTYPE ret = new Num(0);
+
+    if(lType == "int" || rType == "int"){
+        ret->type = "int";
+    } else {
+        ret->type = "byte";
+    }
+
+    if(op == "+") ret->val = lVal + rVal;
+    else if (op == "-") ret->val = lVal - rVal;
+    else if (op == "*") ret->val = lVal * rVal;
+    else ret->val = lVal / rVal;
+
+    if(ret->type == "byte" && ret->val > 255){
+        output::errorByteTooLarge(yylineno, std::to_string(ret->val));
+        exit(0);
+    }
+
+    return ret;
+}
+
 
 
 

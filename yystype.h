@@ -12,12 +12,13 @@ struct Node {
 
 
     int val;
+    bool boolVal;
     std::string name;
     std::string type;
     std::vector<std::string> pNames;
     std::vector<std::string> pTypes;
 
-    Node(int val, std::string text, std::string type);
+    Node(int val, bool boolVal, std::string text, std::string type);
 };
 
 struct Num : public Node {
@@ -45,6 +46,10 @@ struct String : public Node {
 
 struct Formals : public Node {
     explicit Formals(std::string name, std::string type);
+};
+
+struct Bool : public Node {
+    explicit Bool(bool b);
 };
 #define  YYSTYPE Node*
 #endif //PROJECTNAME_YYSTYPE_H

@@ -30,8 +30,8 @@
 %left AND
 %left EQUALITY
 %nonassoc RELOP
-%left ADDSUB
-%left MULTDIV
+%left ADD SUB
+%left MULT DIV
 %right NOT
 %left LPAREN RPAREN
 
@@ -95,17 +95,19 @@ Type : INT 																	{$$ = new Type("int");}
 ;
 
 
-Exp : LPAREN Exp RPAREN 													{printProductionRule(34);}
-    | Exp ADDSUB Exp 														{printProductionRule(35);}
-    | Exp MULTDIV Exp 														{printProductionRule(35);}
+Exp : LPAREN Exp RPAREN 													{$$ = $2;}
+    | Exp ADD Exp 														{$$ = doBinop($1, $3, "+");}
+    | Exp SUB Exp 														{$$ = doBinop($1, $3, "-");}
+    | Exp MULT Exp 														{$$ = doBinop($1, $3, "*");}
+    | Exp DIV Exp 														{$$ = doBinop($1, $3, "/");}
 	| ID 																	{printProductionRule(36);}
 	| Call 																	{printProductionRule(37);}
-	| NUM 																	{printProductionRule(38);}
-	| NUM B 																{printProductionRule(39);}
-	| STRING 																{printProductionRule(40);}
-	| TRUE 																	{printProductionRule(41);}
-	| FALSE 																{printProductionRule(42);}
-	| NOT Exp 																{printProductionRule(43);}
+	| NUM 																	{$$ = $1;}
+	| NUM B 																{$$ = $1; $$->type = "byte";}
+	| STRING 																{$$ = $1;}
+	| TRUE 																	{$$ = $1;}
+	| FALSE 																{$$ = $1;}
+	| NOT Exp 																{$2->boolVal = checkNot($2); $$ = $2;}
 	| Exp AND Exp 															{printProductionRule(44);}
 	| Exp OR Exp 															{printProductionRule(45);}
 	| Exp RELOP Exp 												    	{printProductionRule(46);}

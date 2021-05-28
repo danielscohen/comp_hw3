@@ -5,6 +5,7 @@
 #ifndef PROJECTNAME_PARSER_UTILS_H
 #define PROJECTNAME_PARSER_UTILS_H
 
+#include "yystype.h"
 #include "symbol_table.h"
 #include <vector>
 #include "parser.tab.hpp"
@@ -27,6 +28,8 @@ void addFunDef(std::string retType, std::string name, std::vector<std::string> p
 
 void addVarToSymTable(std::string type, std::string name);
 void addFunToSymTable(std::string retType, std::string name, std::vector<std::string> pNames);
+bool checkNot(YYSTYPE y);
+YYSTYPE doBinop(YYSTYPE lhs, YYSTYPE rhs, std::string op);
 
 void printpNames(std::string pNames);
 

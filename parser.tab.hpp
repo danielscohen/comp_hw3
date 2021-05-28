@@ -75,11 +75,13 @@ extern int yydebug;
     AND = 285,
     EQUALITY = 286,
     RELOP = 287,
-    ADDSUB = 288,
-    MULTDIV = 289,
-    NOT = 290,
-    LPAREN = 291,
-    RPAREN = 292
+    ADD = 288,
+    SUB = 289,
+    MULT = 290,
+    DIV = 291,
+    NOT = 292,
+    LPAREN = 293,
+    RPAREN = 294
   };
 #endif
 

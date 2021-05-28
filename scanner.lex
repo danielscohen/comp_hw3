@@ -37,8 +37,8 @@ PrintableChars		([\x20-\x7E]|{WhiteSpace})
 (and)                         return AND;
 (or)                          return OR;
 (not)                         return NOT;
-(true)                        return TRUE;
-(false)                       return FALSE;
+(true)                        {yylval = new Bool(true); return TRUE;}
+(false)                       {yylval = new Bool(false); return FALSE;}
 (return)                      return RETURN;
 (if)                          return IF;
 (else)                        return ELSE;
@@ -58,8 +58,10 @@ PrintableChars		([\x20-\x7E]|{WhiteSpace})
 \=                            return ASSIGN;
 (<)|(>)|(<=)|(>=)   return RELOP;
 (==)|(!=)   return EQUALITY;
-\+|\-                         return ADDSUB;
-\*|\/                         return MULTDIV;
+\+                         return ADD;
+\-                         return SUB;
+\*                         return MULT;
+\/                         return DIV;
 {Letter}+[0-9a-zA-Z]*	      {yylval = new Id(yytext); return ID;}
 [1-9]{Digit}*|0			      {yylval = new Num(stoi(yytext)); return NUM;}
 \"([^\n\r\"\\]|\\[rnt"\\])+\"  {yylval = new String(yytext); return STRING;}     
