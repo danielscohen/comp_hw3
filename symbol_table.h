@@ -18,11 +18,11 @@ class SymbolTable{
     struct SymTableEntry{
         std::string type;
         std::string returnType;
-        ParamList params;
+        std::vector<std::string> pTypes;
         int offset;
 
         SymTableEntry(std::string type, int offset);
-        SymTableEntry(std::string returnType, ParamList params, int offset);
+        SymTableEntry(std::string returnType, std::vector<std::string> pTypes , int offset);
     };
 
     std::map<std::string, SymTableEntry> table;
@@ -33,7 +33,7 @@ public:
 
     void printTable();
     void insert(std::string name, std::string type, int offset);
-    void insert(std::string name, std::string returnType, std::vector<std::string> pNames, std::vector<std::string> pTypes, int offset);
+    void insert(std::string name, std::string returnType, std::vector<std::string> pTypes, int offset);
     bool existsInTable(std::string name);
     bool varMatchesDefInTable(std::string name, std::string type);
     bool funMatchesDefInTable(std::string name, std::string retType, std::vector<std::string> pTypes);

@@ -44,22 +44,23 @@ Funcs :	/*epsilon*/													        {printProductionRule(2);}
 	  | FuncDecl Funcs 														{printProductionRule(3);}
 ;
 
-FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE Statements RBRACE 		{printProductionRule(4);}
+FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE {addFunDef($1->name, $2->name, $4->pNames, $4->pTypes);} Statements RBRACE 		{exitScopeActions();}
 ;
 
-RetType : Type 																{printProductionRule(5);}
-		| VOID 																{printProductionRule(6);}
+RetType : Type 																{$$ = $1;}
+		| VOID 																{$$ = new Type("void");}
 ;
 
-Formals : /*epsilon*/														{printProductionRule(7);}
-		| FormalsList 														{printProductionRule(8);}
+Formals : /*epsilon*/														{$$ = new Type("");}
+		| FormalsList 														{$$ = $1;}
 ;
 
-FormalsList : FormalDecl 													{printProductionRule(9);}
-			| FormalDecl COMMA FormalsList 									{printProductionRule(10);}
+FormalsList : FormalDecl 													{$$ = $1;}
+			| FormalDecl COMMA FormalsList 									{$3->pNames.insert($3->pNames.begin(), $1->name);
+																				$3->pTypes.insert($3->pTypes.begin(), $1->type); $$ = $3;}
 ;
 
-FormalDecl : Type ID 														{addVarToSymTable($1->text, $2->text);}
+FormalDecl : Type ID 														{$$ = new Formals($1->name, $2->name);}
 ;
 
 Statements : Statment 														{printProductionRule(12);}
@@ -67,7 +68,7 @@ Statements : Statment 														{printProductionRule(12);}
 ;
 
 Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
-		 | Type ID SC 														{prevDefCheck($2->text); addVarToSymTable($1->text, $2->text);}
+		 | Type ID SC 														{prevDefCheck($2->name); addVarToSymTable($1->name, $2->name);}
 		 | Type ID ASSIGN Exp SC 											{printProductionRule(16);}
 		 | ID ASSIGN Exp SC 												{printProductionRule(17);}
 		 | Call SC 															{printProductionRule(18);}
@@ -90,8 +91,8 @@ ExpList : Exp 																{printProductionRule(29);}
 ;
 
 Type : INT 																	{$$ = new Type("int");}
-	 | BYTE 																{$$->text = "byte";}
-     | BOOL 																{$$->text = "bool";}
+	 | BYTE 																{$$ = new Type("byte");}
+     | BOOL 																{$$ = new Type("bool");}
 ;
 
 

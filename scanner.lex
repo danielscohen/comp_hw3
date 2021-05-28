@@ -15,6 +15,7 @@ void lexError();
 %}
 %option yylineno
 %option noyywrap
+%option nounput
 /*%option debug*/
 /*Basic Chars and Numbers*/
 Space				( )

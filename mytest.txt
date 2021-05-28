@@ -1,1 +1,5 @@
-int main(){int y;{int x;}int x;}
+int main(int a){
+    int y;
+    int x;
+    {bool z;}
+}

@@ -22,10 +22,10 @@ void enterScopeSetup();
 void exitScopeActions();
 void printProductionRule(int a);
 void prevDefCheck(std::string name);
-void VarAssignCheck(std::string name, std::string type);
-void funCallCheck(std::string name, std::string retType, std::vector<std::string> pTypes);
+void addFunDef(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes);
 
 
 void addVarToSymTable(std::string type, std::string name);
+void addFunToSymTable(std::string retType, std::string name, std::vector<std::string> pNames);
 
 #endif //PROJECTNAME_PARSER_UTILS_H

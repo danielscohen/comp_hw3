@@ -79,13 +79,17 @@ void prevDefCheck(std::string name) {
 
 }
 
-void VarAssignCheck(std::string name, std::string type) {
-    if(!defMatchesUse(name, type)) output::
+void
+addFunDef(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes) {
+    symTableStack.back().insert(name, retType, pTypes, 0);
+    enterScopeSetup();
+    for(int i = 0; i < (int)pNames.size(); i++){
+        symTableStack.back().insert(pNames[i], pTypes[i], -i-1);
+    }
+
 
 }
 
-void funCallCheck(std::string name, std::string retType, std::vector<std::string> pTypes) {
 
-}
 
 
