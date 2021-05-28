@@ -4,6 +4,8 @@
 
 #include "parser_utils.h"
 #include "hw3_output.hpp"
+#include <iostream>
+#include <algorithm>
 std::vector<SymbolTable> symTableStack;
 std::vector<int> offsetStack;
 
@@ -81,12 +83,22 @@ void prevDefCheck(std::string name) {
 
 void
 addFunDef(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes) {
+    std::reverse(pNames.begin(), pNames.end());
+    std::reverse(pTypes.begin(), pTypes.end());
     symTableStack.back().insert(name, retType, pTypes, 0);
     enterScopeSetup();
     for(int i = 0; i < (int)pNames.size(); i++){
         symTableStack.back().insert(pNames[i], pTypes[i], -i-1);
     }
 
+
+}
+
+void printpNames(std::string pNames) {
+        std::cout << "1: " << pNames << std::endl;
+//    for(std::string a : pNames){
+//        std::cout << "1: " << a << std::endl;
+//    }
 
 }
 

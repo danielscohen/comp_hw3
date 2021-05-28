@@ -28,4 +28,6 @@ void addFunDef(std::string retType, std::string name, std::vector<std::string> p
 void addVarToSymTable(std::string type, std::string name);
 void addFunToSymTable(std::string retType, std::string name, std::vector<std::string> pNames);
 
+void printpNames(std::string pNames);
+
 #endif //PROJECTNAME_PARSER_UTILS_H

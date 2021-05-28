@@ -56,11 +56,10 @@ Formals : /*epsilon*/														{$$ = new Type("");}
 ;
 
 FormalsList : FormalDecl 													{$$ = $1;}
-			| FormalDecl COMMA FormalsList 									{$3->pNames.insert($3->pNames.begin(), $1->name);
-																				$3->pTypes.insert($3->pTypes.begin(), $1->type); $$ = $3;}
+			| FormalDecl COMMA FormalsList 									{$$ = $3; $$->pNames.push_back($1->pNames[0]); $$->pTypes.push_back($1->pTypes[0]);}
 ;
 
-FormalDecl : Type ID 														{$$ = new Formals($1->name, $2->name);}
+FormalDecl : Type ID 														{$$ = new Formals($2->name, $1->name);}
 ;
 
 Statements : Statment 														{printProductionRule(12);}

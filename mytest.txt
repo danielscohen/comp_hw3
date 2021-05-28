@@ -1,4 +1,8 @@
-int main(int a){
+int f(int q, int a, bool c){
+    int d;
+    bool q;
+}
+void main(){
     int y;
     int x;
     {bool z;}

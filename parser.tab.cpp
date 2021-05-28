@@ -471,11 +471,11 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    40,    40,    43,    44,    47,    47,    50,    51,    54,
-      55,    58,    59,    63,    66,    67,    70,    70,    71,    72,
-      73,    74,    75,    76,    77,    78,    79,    80,    81,    82,
-      85,    86,    89,    90,    93,    94,    95,    99,   100,   101,
-     102,   103,   104,   105,   106,   107,   108,   109,   110,   111,
-     112,   113,   116,   117,   118,   120
+      55,    58,    59,    62,    65,    66,    69,    69,    70,    71,
+      72,    73,    74,    75,    76,    77,    78,    79,    80,    81,
+      84,    85,    88,    89,    92,    93,    94,    98,    99,   100,
+     101,   102,   103,   104,   105,   106,   107,   108,   109,   110,
+     111,   112,   115,   116,   117,   119
 };
 #endif
 
@@ -1398,271 +1398,270 @@ yyreduce:
 
   case 12:
 #line 59 "parser.ypp" /* yacc.c:1646  */
-    {(yyvsp[0])->pNames.insert((yyvsp[0])->pNames.begin(), (yyvsp[-2])->name);
-																				(yyvsp[0])->pTypes.insert((yyvsp[0])->pTypes.begin(), (yyvsp[-2])->type); (yyval) = (yyvsp[0]);}
-#line 1404 "parser.tab.cpp" /* yacc.c:1646  */
+    {(yyval) = (yyvsp[0]); (yyval)->pNames.push_back((yyvsp[-2])->pNames[0]); (yyval)->pTypes.push_back((yyvsp[-2])->pTypes[0]);}
+#line 1403 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 63 "parser.ypp" /* yacc.c:1646  */
-    {(yyval) = new Formals((yyvsp[-1])->name, (yyvsp[0])->name);}
-#line 1410 "parser.tab.cpp" /* yacc.c:1646  */
+#line 62 "parser.ypp" /* yacc.c:1646  */
+    {(yyval) = new Formals((yyvsp[0])->name, (yyvsp[-1])->name);}
+#line 1409 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 66 "parser.ypp" /* yacc.c:1646  */
+#line 65 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(12);}
-#line 1416 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1415 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 67 "parser.ypp" /* yacc.c:1646  */
+#line 66 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(13);}
-#line 1422 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1421 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 70 "parser.ypp" /* yacc.c:1646  */
+#line 69 "parser.ypp" /* yacc.c:1646  */
     {enterScopeSetup();}
-#line 1428 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1427 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 70 "parser.ypp" /* yacc.c:1646  */
+#line 69 "parser.ypp" /* yacc.c:1646  */
     {exitScopeActions();}
-#line 1434 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1433 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 71 "parser.ypp" /* yacc.c:1646  */
+#line 70 "parser.ypp" /* yacc.c:1646  */
     {prevDefCheck((yyvsp[-1])->name); addVarToSymTable((yyvsp[-2])->name, (yyvsp[-1])->name);}
-#line 1440 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1439 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 72 "parser.ypp" /* yacc.c:1646  */
+#line 71 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(16);}
-#line 1446 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1445 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 73 "parser.ypp" /* yacc.c:1646  */
+#line 72 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(17);}
-#line 1452 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1451 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 74 "parser.ypp" /* yacc.c:1646  */
+#line 73 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(18);}
-#line 1458 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1457 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 75 "parser.ypp" /* yacc.c:1646  */
+#line 74 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(19);}
-#line 1464 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1463 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 76 "parser.ypp" /* yacc.c:1646  */
+#line 75 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(20);}
-#line 1470 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1469 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 77 "parser.ypp" /* yacc.c:1646  */
+#line 76 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(21);}
-#line 1476 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1475 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 78 "parser.ypp" /* yacc.c:1646  */
+#line 77 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(22);}
-#line 1482 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1481 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 79 "parser.ypp" /* yacc.c:1646  */
+#line 78 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(23);}
-#line 1488 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1487 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 80 "parser.ypp" /* yacc.c:1646  */
+#line 79 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(24);}
-#line 1494 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1493 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 81 "parser.ypp" /* yacc.c:1646  */
+#line 80 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(25);}
-#line 1500 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1499 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 82 "parser.ypp" /* yacc.c:1646  */
+#line 81 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(26);}
-#line 1506 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1505 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 85 "parser.ypp" /* yacc.c:1646  */
+#line 84 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(27);}
-#line 1512 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1511 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 86 "parser.ypp" /* yacc.c:1646  */
+#line 85 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(28);}
-#line 1518 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1517 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 89 "parser.ypp" /* yacc.c:1646  */
+#line 88 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(29);}
-#line 1524 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1523 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 90 "parser.ypp" /* yacc.c:1646  */
+#line 89 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(30);}
-#line 1530 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1529 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 93 "parser.ypp" /* yacc.c:1646  */
+#line 92 "parser.ypp" /* yacc.c:1646  */
     {(yyval) = new Type("int");}
-#line 1536 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1535 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 94 "parser.ypp" /* yacc.c:1646  */
+#line 93 "parser.ypp" /* yacc.c:1646  */
     {(yyval) = new Type("byte");}
-#line 1542 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1541 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 95 "parser.ypp" /* yacc.c:1646  */
+#line 94 "parser.ypp" /* yacc.c:1646  */
     {(yyval) = new Type("bool");}
-#line 1548 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1547 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 99 "parser.ypp" /* yacc.c:1646  */
+#line 98 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(34);}
-#line 1554 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1553 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 100 "parser.ypp" /* yacc.c:1646  */
+#line 99 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(35);}
-#line 1560 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1559 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 101 "parser.ypp" /* yacc.c:1646  */
+#line 100 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(35);}
-#line 1566 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1565 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 102 "parser.ypp" /* yacc.c:1646  */
+#line 101 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(36);}
-#line 1572 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1571 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 103 "parser.ypp" /* yacc.c:1646  */
+#line 102 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(37);}
-#line 1578 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1577 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 104 "parser.ypp" /* yacc.c:1646  */
+#line 103 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(38);}
-#line 1584 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1583 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 105 "parser.ypp" /* yacc.c:1646  */
+#line 104 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(39);}
-#line 1590 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1589 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 106 "parser.ypp" /* yacc.c:1646  */
+#line 105 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(40);}
-#line 1596 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1595 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 107 "parser.ypp" /* yacc.c:1646  */
+#line 106 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(41);}
-#line 1602 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1601 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 108 "parser.ypp" /* yacc.c:1646  */
+#line 107 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(42);}
-#line 1608 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1607 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 109 "parser.ypp" /* yacc.c:1646  */
+#line 108 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(43);}
-#line 1614 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1613 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 110 "parser.ypp" /* yacc.c:1646  */
+#line 109 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(44);}
-#line 1620 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1619 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 111 "parser.ypp" /* yacc.c:1646  */
+#line 110 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(45);}
-#line 1626 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1625 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 112 "parser.ypp" /* yacc.c:1646  */
+#line 111 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(46);}
-#line 1632 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1631 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 113 "parser.ypp" /* yacc.c:1646  */
+#line 112 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(46);}
-#line 1638 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1637 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 116 "parser.ypp" /* yacc.c:1646  */
+#line 115 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(48);}
-#line 1644 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1643 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 117 "parser.ypp" /* yacc.c:1646  */
+#line 116 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(49);}
-#line 1650 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1649 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 118 "parser.ypp" /* yacc.c:1646  */
+#line 117 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(50);}
-#line 1656 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1655 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 120 "parser.ypp" /* yacc.c:1646  */
+#line 119 "parser.ypp" /* yacc.c:1646  */
     {printProductionRule(51);}
-#line 1662 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1661 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 1666 "parser.tab.cpp" /* yacc.c:1646  */
+#line 1665 "parser.tab.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1890,7 +1889,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 124 "parser.ypp" /* yacc.c:1906  */
+#line 123 "parser.ypp" /* yacc.c:1906  */
 
 
 
