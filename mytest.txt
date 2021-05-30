@@ -1,6 +1,7 @@
 int f(int q, int a, bool c){
     int e = 250b + 6;
     bool w = e < a;
+    if (false){ int i = 36;}
 }
 int h(){
     int a;
@@ -13,5 +14,4 @@ void main(){
     bool x;
     {bool z;}
     bool z = true;
-    return z;
 }

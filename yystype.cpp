@@ -4,9 +4,9 @@
 
 #include "yystype.h"
 
-Num::Num(int val) : Node(val, "", "int") {}
+Num::Num(int val) : Node(val, "", "INT") {}
 Id::Id(std::string name) : Node(0, name, "") {}
-String::String(std::string text) : Node(0, text, "") {}
+String::String(std::string text) : Node(0, text, "STRING") {}
 Type::Type(std::string name) : Node(0, name, "") {}
 Formals::Formals(std::string name, std::string type) : Node(0, "", "") {
     pNames.push_back(name);

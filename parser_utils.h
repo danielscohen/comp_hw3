@@ -24,6 +24,7 @@ void exitScopeActions();
 void printProductionRule(int a);
 void prevDefCheck(std::string name);
 void addFunDef(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes);
+void addFunDefPrint(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes);
 
 
 void addVarToSymTable(std::string type, std::string id, int val);

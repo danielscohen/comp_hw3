@@ -48,7 +48,7 @@ FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE {addFunDef($1->name, $2->name
 ;
 
 RetType : Type 																{$$ = $1;}
-		| VOID 																{$$ = new Type("void");}
+		| VOID 																{$$ = new Type("VOID");}
 ;
 
 Formals : /*epsilon*/														{$$ = new Type("");}
@@ -71,14 +71,23 @@ Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
 		 | Type ID ASSIGN Exp SC 											{prevDefCheck($2->name); checkTypeMatch($1->name, $4->type); addVarToSymTable($1->name, $2->name, $4->val);}
 		 | ID ASSIGN Exp SC 												{ checkTypeMatch(getTypeById($1->name), $3->type);  changeValOfVar($1->name, $3->val);}
 		 | Call SC 															{printProductionRule(18);}
-		 | RETURN SC 														{checkRetMatchesFunc("void");}
+		 | RETURN SC 														{checkRetMatchesFunc("VOID");}
 		 | RETURN Exp SC 													{checkRetMatchesFunc($2->type);}
-		 | IF LPAREN Exp RPAREN Statment %prec HELSE 									{printProductionRule(21);}
-		 | IF LPAREN Exp RPAREN Statment ELSE Statment  						{printProductionRule(22);}
+		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 %prec HELSE 									
+		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 ELSE {enterScopeSetup();} Statment {exitScopeActions();} 						
 		 | WHILE LPAREN Exp RPAREN Statment 								{printProductionRule(23);}
 		 | BREAK SC 														{printProductionRule(24);}
 		 | CONTINUE SC 														{printProductionRule(25);}
 		 | SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE                  {printProductionRule(26);}
+;
+
+M1 : /* epsilon */															{YYSTYPE e = yyvsp[0]; checkBool(e, e);}											
+;
+
+M2 : /* epsilon */															{enterScopeSetup();}											
+;
+
+M3 : /* epsilon */															{exitScopeActions();}											
 ;
 
 Call : ID LPAREN ExpList RPAREN 											{$$ = funCall($1->name, $3->pTypes);}
@@ -89,9 +98,9 @@ ExpList : Exp 																{$1->pTypes.push_back($1->type); $$ = $1;}
 		| Exp COMMA ExpList 												{$3->pTypes.push_back($1->type); $$ = $3;}
 ;
 
-Type : INT 																	{$$ = new Type("int");}
-	 | BYTE 																{$$ = new Type("byte");}
-     | BOOL 																{$$ = new Type("bool");}
+Type : INT 																	{$$ = new Type("INT");}
+	 | BYTE 																{$$ = new Type("BYTE");}
+     | BOOL 																{$$ = new Type("BOOL");}
 ;
 
 
@@ -103,15 +112,15 @@ Exp : LPAREN Exp RPAREN 													{$$ = $2;}
 	| ID 																	{$$ = getById($1);}
 	| Call 																	{printProductionRule(37);}
 	| NUM 																	{$$ = $1;}
-	| NUM B 																{$$ = $1; $$->type = "byte";}
+	| NUM B 																{$$ = $1; $$->type = "BYTE";}
 	| STRING 																{$$ = $1;}
 	| TRUE 																	{$$ = $1;}
 	| FALSE 																{$$ = $1;}
 	| NOT Exp 																{checkNot($2); $$ = $2;}
 	| Exp AND Exp 															{checkBool($1,$3); $$ = $1;}
 	| Exp OR Exp 															{checkBool($1,$3); $$ = $1;}
-	| Exp RELOP Exp 												    	{checkRelop($1, $3); $$ = new Exp("bool");}
-	| Exp EQUALITY Exp 												    	{checkTypeMatch($1->type, $3->type); $$ = new Exp("bool");}
+	| Exp RELOP Exp 												    	{checkRelop($1, $3); $$ = new Exp("BOOL");}
+	| Exp EQUALITY Exp 												    	{checkTypeMatch($1->type, $3->type); $$ = new Exp("BOOL");}
 ;
 
 CaseList : CaseDecl CaseList	                                            {printProductionRule(48);}
@@ -131,6 +140,8 @@ int main()
 {
 	/* yydebug = 1; */
 	enterScopeSetup();
+	addFunDefPrint("VOID", "print", std::vector<std::string>(), std::vector<std::string>{"STRING"} );
+	addFunDefPrint("VOID", "printi", std::vector<std::string>(), std::vector<std::string>{"INT"} );
 	int parseRes = yyparse();
 	exitScopeActions();
     return parseRes;

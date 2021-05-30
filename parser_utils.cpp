@@ -93,6 +93,10 @@ addFunDef(std::string retType, std::string name, std::vector<std::string> pNames
 
 }
 
+void
+addFunDefPrint(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes) {
+    symTableStack.back().insert(name, retType, pTypes, 0);
+}
 void printpNames(std::string pNames) {
         std::cout << "1: " << pNames << std::endl;
 //    for(std::string a : pNames){
@@ -102,7 +106,7 @@ void printpNames(std::string pNames) {
 }
 
 void checkNot(YYSTYPE y) {
-    if(y->type != "bool"){
+    if(y->type != "BOOL"){
         output::errorMismatch(yylineno);
         exit(0);
     }
@@ -113,16 +117,16 @@ Node *doBinop(Node *lhs, Node *rhs, std::string op) {
     std::string rType = rhs->type;
     int lVal = lhs->val;
     int rVal = rhs->val;
-    if((rType != "int" && rType != "byte") || (lType != "int" && lType != "byte")){
+    if((rType != "INT" && rType != "BYTE") || (lType != "INT" && lType != "BYTE")){
         output::errorMismatch(yylineno);
         exit(0);
     }
     YYSTYPE ret = new Num(0);
 
-    if(lType == "int" || rType == "int"){
-        ret->type = "int";
+    if(lType == "INT" || rType == "INT"){
+        ret->type = "INT";
     } else {
-        ret->type = "byte";
+        ret->type = "BYTE";
     }
 
     if(op == "+") ret->val = lVal + rVal;
@@ -130,7 +134,7 @@ Node *doBinop(Node *lhs, Node *rhs, std::string op) {
     else if (op == "*") ret->val = lVal * rVal;
     else ret->val = lVal / rVal;
 
-    if(ret->type == "byte" && ret->val > 255){
+    if(ret->type == "BYTE" && ret->val > 255){
         output::errorByteTooLarge(yylineno, std::to_string(ret->val));
         exit(0);
     }
@@ -139,14 +143,14 @@ Node *doBinop(Node *lhs, Node *rhs, std::string op) {
 }
 
 void checkBool(Node *lhs, Node *rhs) {
-    if(lhs->type != "bool" || rhs->type != "bool"){
+    if(lhs->type != "BOOL" || rhs->type != "BOOL"){
         output::errorMismatch(yylineno);
         exit(0);
     }
 }
 
 void checkRelop(Node *lhs, Node *rhs) {
-    if(( lhs->type != "int" && lhs->type != "byte" ) && ( rhs->type != "int" && rhs->type != "byte" )){
+    if(( lhs->type != "INT" && lhs->type != "BYTE" ) && ( rhs->type != "INT" && rhs->type != "BYTE" )){
         output::errorMismatch(yylineno);
         exit(0);
     }
@@ -163,7 +167,7 @@ Node *getById(Node *id) {
 }
 
 void checkTypeMatch(std::string type1, std::string type2) {
-    if(type1 == type2 || (type1 == "int" && type2 == "byte")) return;
+    if(type1 == type2 || (type1 == "INT" && type2 == "BYTE")) return;
 
     output::errorMismatch(yylineno);
     exit(0);
