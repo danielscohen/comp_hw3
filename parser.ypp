@@ -75,10 +75,10 @@ Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
 		 | RETURN Exp SC 													{checkRetMatchesFunc($2->type);}
 		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 %prec HELSE 									
 		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 ELSE {enterScopeSetup();} Statment {exitScopeActions();} 						
-		 | WHILE LPAREN Exp RPAREN Statment 								{printProductionRule(23);}
+		 | WHILE LPAREN Exp M1 RPAREN M2 Statment M3 								{printProductionRule(23);}
 		 | BREAK SC 														{printProductionRule(24);}
 		 | CONTINUE SC 														{printProductionRule(25);}
-		 | SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE                  {printProductionRule(26);}
+		 | SWITCH LPAREN Exp {checkRelop($3, $3);} RPAREN LBRACE {enterScopeSetup();} CaseList RBRACE {exitScopeActions();}                 {printProductionRule(26);}
 ;
 
 M1 : /* epsilon */															{YYSTYPE e = yyvsp[0]; checkBool(e, e);}											
