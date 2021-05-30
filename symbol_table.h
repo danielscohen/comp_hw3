@@ -9,6 +9,7 @@
 #include <map>
 #include <utility>
 #include <string>
+#include "yystype.h"
 
 
 typedef std::vector<std::pair<std::string, std::string>> ParamList;
@@ -19,9 +20,10 @@ class SymbolTable{
         std::string type;
         std::string returnType;
         std::vector<std::string> pTypes;
+        int val;
         int offset;
 
-        SymTableEntry(std::string type, int offset);
+        SymTableEntry(std::string type, int val, int offset);
         SymTableEntry(std::string returnType, std::vector<std::string> pTypes , int offset);
     };
 
@@ -32,12 +34,13 @@ class SymbolTable{
 public:
 
     void printTable();
-    void insert(std::string name, std::string type, int offset);
+    void insert(std::string name, std::string type, int val, int offset);
     void insert(std::string name, std::string returnType, std::vector<std::string> pTypes, int offset);
     bool existsInTable(std::string name);
     bool varMatchesDefInTable(std::string name, std::string type);
     bool funMatchesDefInTable(std::string name, std::string retType, std::vector<std::string> pTypes);
     bool isfunction(std::string name);
+    YYSTYPE getById(std::string name);
 
 
 

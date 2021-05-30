@@ -37,8 +37,8 @@ PrintableChars		([\x20-\x7E]|{WhiteSpace})
 (and)                         return AND;
 (or)                          return OR;
 (not)                         return NOT;
-(true)                        {yylval = new Bool(true); return TRUE;}
-(false)                       {yylval = new Bool(false); return FALSE;}
+(true)                        {yylval = new Exp("bool"); return TRUE;}
+(false)                       {yylval = new Exp("bool"); return FALSE;}
 (return)                      return RETURN;
 (if)                          return IF;
 (else)                        return ELSE;

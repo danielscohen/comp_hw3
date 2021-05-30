@@ -5,14 +5,14 @@
 #include "symbol_table.h"
 #include "hw3_output.hpp"
 
-SymbolTable::SymTableEntry::SymTableEntry(std::string type, int offset) : type(type), returnType(""), offset(offset) {}
+SymbolTable::SymTableEntry::SymTableEntry(std::string type, int val, int offset) : type(type), returnType(""), val(val), offset(offset) {}
 
 SymbolTable::SymTableEntry::SymTableEntry(std::string returnType, std::vector<std::string> pTypes, int offset) :
 returnType(returnType), pTypes(pTypes), offset(offset){}
 
-void SymbolTable::insert(std::string name, std::string type, int offset) {
+void SymbolTable::insert(std::string name, std::string type, int val, int offset) {
     insertionList.push_back(name);
-    table.insert(std::pair<std::string, SymbolTable::SymTableEntry> (name, SymTableEntry(type, offset)));
+    table.insert(std::pair<std::string, SymbolTable::SymTableEntry> (name, SymTableEntry(type, val, offset)));
 }
 
 void SymbolTable::insert(std::string name, std::string returnType,
@@ -59,4 +59,20 @@ bool SymbolTable::funMatchesDefInTable(std::string name, std::string retType, st
 }
 bool SymbolTable::isfunction(std::string name) {
     return table.find(name)->second.returnType == "";
+}
+
+YYSTYPE SymbolTable::getById(std::string name) {
+    auto& var = table.find(name)->second;
+    std::string type = var.type;
+    if(type == "int"){
+        return new Num(var.val);
+    }
+    if(type == "byte"){
+        YYSTYPE ret = new Num(var.val);
+        ret->type = "byte";
+        return ret;
+    }
+    if(type == "bool"){
+        return new Exp("bool");
+    }
 }

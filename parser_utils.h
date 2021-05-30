@@ -26,10 +26,13 @@ void prevDefCheck(std::string name);
 void addFunDef(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes);
 
 
-void addVarToSymTable(std::string type, std::string name);
+void addVarToSymTable(YYSTYPE var);
 void addFunToSymTable(std::string retType, std::string name, std::vector<std::string> pNames);
-bool checkNot(YYSTYPE y);
+void checkNot(YYSTYPE y);
 YYSTYPE doBinop(YYSTYPE lhs, YYSTYPE rhs, std::string op);
+void checkBool(YYSTYPE lhs, YYSTYPE rhs);
+void checkRelop(YYSTYPE lhs, YYSTYPE rhs);
+YYSTYPE getById(YYSTYPE id);
 
 void printpNames(std::string pNames);
 

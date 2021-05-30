@@ -24,8 +24,8 @@ void exitScopeActions() {
     offsetStack.pop_back();
 }
 
-void addVarToSymTable(std::string type, std::string name) {
-    symTableStack.back().insert(name, type, offsetStack.back());
+void addVarToSymTable(YYSTYPE var) {
+    symTableStack.back().insert(var->name, var->type, 0, var->val);
     offsetStack.back()++;
 }
 
@@ -88,7 +88,7 @@ addFunDef(std::string retType, std::string name, std::vector<std::string> pNames
     symTableStack.back().insert(name, retType, pTypes, 0);
     enterScopeSetup();
     for(int i = 0; i < (int)pNames.size(); i++){
-        symTableStack.back().insert(pNames[i], pTypes[i], -i-1);
+        symTableStack.back().insert(pNames[i], pTypes[i], 0, -i - 1);
     }
 
 
@@ -102,13 +102,11 @@ void printpNames(std::string pNames) {
 
 }
 
-bool checkNot(YYSTYPE y) {
+void checkNot(YYSTYPE y) {
     if(y->type != "bool"){
         output::errorMismatch(yylineno);
         exit(0);
     }
-    return y->boolVal ? false : true;
-
 }
 
 Node *doBinop(Node *lhs, Node *rhs, std::string op) {
@@ -141,6 +139,29 @@ Node *doBinop(Node *lhs, Node *rhs, std::string op) {
     return ret;
 }
 
+void checkBool(Node *lhs, Node *rhs) {
+    if(lhs->type != "bool" || rhs->type != "bool"){
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+}
+
+void checkRelop(Node *lhs, Node *rhs) {
+    if(( lhs->type != "int" && lhs->type != "byte" ) && ( rhs->type != "int" && rhs->type != "byte" )){
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+}
+
+Node *getById(Node *id) {
+    std::string name = id->name;
+    for(SymbolTable& table : symTableStack){
+        if(!table.existsInTable(name)) continue;
+        return table.getById(name);
+    }
+    output::errorUndef(yylineno, name);
+    exit(0);
+}
 
 
 
