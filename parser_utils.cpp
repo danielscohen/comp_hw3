@@ -24,8 +24,8 @@ void exitScopeActions() {
     offsetStack.pop_back();
 }
 
-void addVarToSymTable(YYSTYPE var) {
-    symTableStack.back().insert(var->name, var->type, 0, var->val);
+void addVarToSymTable(std::string type, std::string id, int val) {
+    symTableStack.back().insert(id, type, val, offsetStack.back());
     offsetStack.back()++;
 }
 
@@ -162,6 +162,35 @@ Node *getById(Node *id) {
     output::errorUndef(yylineno, name);
     exit(0);
 }
+
+void checkTypeMatch(std::string type1, std::string type2) {
+    if(type1 == type2 || (type1 == "int" && type2 == "byte")) return;
+
+    output::errorMismatch(yylineno);
+    exit(0);
+}
+
+std::string getTypeById(std::string name) {
+    for(SymbolTable& table : symTableStack){
+        if(!table.existsInTable(name)) continue;
+        return table.getTypeById(name);
+    }
+    output::errorUndef(yylineno, name);
+    exit(0);
+}
+
+void changeValOfVar(std::string name, int val) {
+    for(SymbolTable& table : symTableStack){
+        if(!table.existsInTable(name)) continue;
+        table.setVal(name, val);
+    }
+    output::errorUndef(yylineno, name);
+    exit(0);
+
+
+
+}
+
 
 
 

@@ -41,6 +41,8 @@ public:
     bool funMatchesDefInTable(std::string name, std::string retType, std::vector<std::string> pTypes);
     bool isfunction(std::string name);
     YYSTYPE getById(std::string name);
+    std::string getTypeById(std::string name);
+    void setVal(std::string name, int val);
 
 
 

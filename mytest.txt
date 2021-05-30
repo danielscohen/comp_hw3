@@ -1,9 +1,9 @@
 int f(int q, int a, bool c){
-    int d;
-    bool q;
+    int e = a;
 }
 void main(){
     int y;
     int x;
     {bool z;}
+    bool z = x;
 }

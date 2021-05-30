@@ -67,9 +67,9 @@ Statements : Statment 														{printProductionRule(12);}
 ;
 
 Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
-		 | Type ID SC 														{prevDefCheck($2->name); addVarToSymTable($1->name, $2->name);}
-		 | Type ID ASSIGN Exp SC 											{printProductionRule(16);}
-		 | ID ASSIGN Exp SC 												{printProductionRule(17);}
+		 | Type ID SC 														{prevDefCheck($2->name); addVarToSymTable($1->name, $2->name, 0);}
+		 | Type ID ASSIGN Exp SC 											{prevDefCheck($2->name); checkTypeMatch($1->name, $4->type); addVarToSymTable($1->name, $2->name, $4->val);}
+		 | ID ASSIGN Exp SC 												{ checkTypeMatch(getTypeById($1->name), $3->type);  changeValOfVar($1->name, $3->val);}
 		 | Call SC 															{printProductionRule(18);}
 		 | RETURN SC 														{printProductionRule(19);}
 		 | RETURN Exp SC 													{printProductionRule(20);}
@@ -100,7 +100,7 @@ Exp : LPAREN Exp RPAREN 													{$$ = $2;}
     | Exp SUB Exp 														{$$ = doBinop($1, $3, "-");}
     | Exp MULT Exp 														{$$ = doBinop($1, $3, "*");}
     | Exp DIV Exp 														{$$ = doBinop($1, $3, "/");}
-	| ID 																	{getById($1);}
+	| ID 																	{$$ = getById($1);}
 	| Call 																	{printProductionRule(37);}
 	| NUM 																	{$$ = $1;}
 	| NUM B 																{$$ = $1; $$->type = "byte";}
@@ -111,7 +111,7 @@ Exp : LPAREN Exp RPAREN 													{$$ = $2;}
 	| Exp AND Exp 															{checkBool($1,$3); $$ = $1;}
 	| Exp OR Exp 															{checkBool($1,$3); $$ = $1;}
 	| Exp RELOP Exp 												    	{checkRelop($1, $3); $$ = new Exp("bool");}
-	| Exp EQUALITY Exp 												    	{printProductionRule(46);}
+	| Exp EQUALITY Exp 												    	{checkTypeMatch($1->type, $3->type); $$ = new Exp("bool");}
 ;
 
 CaseList : CaseDecl CaseList	                                            {printProductionRule(48);}

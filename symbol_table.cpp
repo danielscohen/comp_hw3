@@ -76,3 +76,11 @@ YYSTYPE SymbolTable::getById(std::string name) {
         return new Exp("bool");
     }
 }
+
+std::string SymbolTable::getTypeById(std::string name) {
+    return table.find(name)->second.type;
+}
+
+void SymbolTable::setVal(std::string name, int val) {
+    table.find(name)->second.val = val;
+}

@@ -1444,19 +1444,19 @@ yyreduce:
 
   case 18:
 #line 70 "parser.ypp" /* yacc.c:1646  */
-    {prevDefCheck((yyvsp[-1])->name); addVarToSymTable((yyvsp[-2])->name, (yyvsp[-1])->name);}
+    {prevDefCheck((yyvsp[-1])->name); addVarToSymTable((yyvsp[-2])->name, (yyvsp[-1])->name, 0);}
 #line 1449 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 71 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(16);}
+    {prevDefCheck((yyvsp[-3])->name); checkTypeMatch((yyvsp[-4])->name, (yyvsp[-1])->type); addVarToSymTable((yyvsp[-4])->name, (yyvsp[-3])->name, (yyvsp[-1])->val);}
 #line 1455 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 72 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(17);}
+    { checkTypeMatch(getTypeById((yyvsp[-3])->name), (yyvsp[-1])->type);  changeValOfVar((yyvsp[-3])->name, (yyvsp[-1])->val);}
 #line 1461 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1588,7 +1588,7 @@ yyreduce:
 
   case 42:
 #line 103 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(36);}
+    {(yyval) = getById((yyvsp[0]));}
 #line 1593 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1630,31 +1630,31 @@ yyreduce:
 
   case 49:
 #line 110 "parser.ypp" /* yacc.c:1646  */
-    {(yyvsp[0])->boolVal = checkNot((yyvsp[0])); (yyval) = (yyvsp[0]);}
+    {checkNot((yyvsp[0])); (yyval) = (yyvsp[0]);}
 #line 1635 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 50:
 #line 111 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(44);}
+    {checkBool((yyvsp[-2]),(yyvsp[0])); (yyval) = (yyvsp[-2]);}
 #line 1641 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 51:
 #line 112 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(45);}
+    {checkBool((yyvsp[-2]),(yyvsp[0])); (yyval) = (yyvsp[-2]);}
 #line 1647 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 52:
 #line 113 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(46);}
+    {checkRelop((yyvsp[-2]), (yyvsp[0])); (yyval) = new Exp("bool");}
 #line 1653 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 53:
 #line 114 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(46);}
+    {checkTypeMatch((yyvsp[-2])->type, (yyvsp[0])->type); (yyval) = new Exp("bool");}
 #line 1659 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 

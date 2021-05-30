@@ -927,12 +927,12 @@ return NOT;
 case 9:
 YY_RULE_SETUP
 #line 40 "scanner.lex"
-{yylval = new Bool(true); return TRUE;}
+{yylval = new Exp("bool"); return TRUE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 41 "scanner.lex"
-{yylval = new Bool(false); return FALSE;}
+{yylval = new Exp("bool"); return FALSE;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
