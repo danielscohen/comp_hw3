@@ -38,5 +38,6 @@ void checkTypeMatch(std::string type1, std::string type2);
 void printpNames(std::string pNames);
 std::string getTypeById(std::string Id);
 void changeValOfVar(std::string Id, int val);
+void checkRetMatchesFunc(std::string type);
 
 #endif //PROJECTNAME_PARSER_UTILS_H

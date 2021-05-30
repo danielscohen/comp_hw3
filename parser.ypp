@@ -71,8 +71,8 @@ Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
 		 | Type ID ASSIGN Exp SC 											{prevDefCheck($2->name); checkTypeMatch($1->name, $4->type); addVarToSymTable($1->name, $2->name, $4->val);}
 		 | ID ASSIGN Exp SC 												{ checkTypeMatch(getTypeById($1->name), $3->type);  changeValOfVar($1->name, $3->val);}
 		 | Call SC 															{printProductionRule(18);}
-		 | RETURN SC 														{printProductionRule(19);}
-		 | RETURN Exp SC 													{printProductionRule(20);}
+		 | RETURN SC 														{checkRetMatchesFunc("void");}
+		 | RETURN Exp SC 													{checkRetMatchesFunc($2->type);}
 		 | IF LPAREN Exp RPAREN Statment %prec HELSE 									{printProductionRule(21);}
 		 | IF LPAREN Exp RPAREN Statment ELSE Statment  						{printProductionRule(22);}
 		 | WHILE LPAREN Exp RPAREN Statment 								{printProductionRule(23);}

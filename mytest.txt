@@ -2,11 +2,16 @@ int f(int q, int a, bool c){
     int e = 250b + 6;
     bool w = e < a;
 }
+int h(){
+    int a;
+}
 void main(){
+    h();
     int a = 7;
-    f(5b + 6, true);
+    f(3,5b + 6, true);
     bool y;
     bool x;
     {bool z;}
     bool z = true;
+    return z;
 }

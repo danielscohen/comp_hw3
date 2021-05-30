@@ -190,6 +190,12 @@ void changeValOfVar(std::string name, int val) {
 
 }
 
+void checkRetMatchesFunc(std::string type) {
+    SymbolTable gTable = symTableStack[0];
+    gTable.checkRetMatchesFunc(type);
+
+}
+
 
 
 

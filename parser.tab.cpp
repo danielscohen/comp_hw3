@@ -1468,13 +1468,13 @@ yyreduce:
 
   case 22:
 #line 74 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(19);}
+    {checkRetMatchesFunc("void");}
 #line 1473 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 75 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(20);}
+    {checkRetMatchesFunc((yyvsp[-1])->type);}
 #line 1479 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 

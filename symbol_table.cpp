@@ -94,3 +94,10 @@ void SymbolTable::setVal(std::string name, int val) {
 std::string SymbolTable::getRetTypeById(std::string name) {
     return table.find(name)->second.returnType;
 }
+
+void SymbolTable::checkRetMatchesFunc(std::string type) {
+    if(table.find(insertionList.back())->second.returnType != type){
+        output::errorMismatch(yylineno);
+        exit(0);
+    }
+}

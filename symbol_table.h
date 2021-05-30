@@ -44,6 +44,7 @@ public:
     std::string getTypeById(std::string name);
     void setVal(std::string name, int val);
     std::string getRetTypeById(std::string name);
+    void checkRetMatchesFunc(std::string type);
 
 
 
