@@ -38,11 +38,12 @@ public:
     void insert(std::string name, std::string returnType, std::vector<std::string> pTypes, int offset);
     bool existsInTable(std::string name);
     bool varMatchesDefInTable(std::string name, std::string type);
-    bool funMatchesDefInTable(std::string name, std::string retType, std::vector<std::string> pTypes);
+    void funMatchesDefInTable(std::string name, std::vector<std::string> pTypes);
     bool isfunction(std::string name);
     YYSTYPE getById(std::string name);
     std::string getTypeById(std::string name);
     void setVal(std::string name, int val);
+    std::string getRetTypeById(std::string name);
 
 
 

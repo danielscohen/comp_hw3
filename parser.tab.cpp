@@ -1516,25 +1516,25 @@ yyreduce:
 
   case 30:
 #line 84 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(27);}
+    {(yyval) = funCall((yyvsp[-3])->name, (yyvsp[-1])->pTypes);}
 #line 1521 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 85 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(28);}
+    {(yyval) = funCall((yyvsp[-2])->name, std::vector<std::string>());}
 #line 1527 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 88 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(29);}
+    {(yyvsp[0])->pTypes.push_back((yyvsp[0])->type); (yyval) = (yyvsp[0]);}
 #line 1533 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 89 "parser.ypp" /* yacc.c:1646  */
-    {printProductionRule(30);}
+    {(yyvsp[0])->pTypes.push_back((yyvsp[-2])->type); (yyval) = (yyvsp[0]);}
 #line 1539 "parser.tab.cpp" /* yacc.c:1646  */
     break;
 

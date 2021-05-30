@@ -4,6 +4,7 @@
 
 #include "symbol_table.h"
 #include "hw3_output.hpp"
+extern int yylineno;
 
 SymbolTable::SymTableEntry::SymTableEntry(std::string type, int val, int offset) : type(type), returnType(""), val(val), offset(offset) {}
 
@@ -49,16 +50,21 @@ bool SymbolTable::varMatchesDefInTable(std::string name, std::string type) {
     return table.find(name)->first == type || (table.find(name)->first == "int" && type == "byte");
 }
 
-bool SymbolTable::funMatchesDefInTable(std::string name, std::string retType, std::vector<std::string> pTypes) {
+void SymbolTable::funMatchesDefInTable(std::string name, std::vector<std::string> pTypes) {
     auto& fun = table.find(name)->second;
-    if(fun.returnType != retType || fun.pTypes.size() != pTypes.size()) return false;
-    for(size_t i = 0; i < pTypes.size(); i++){
-        if(fun.pTypes[i] != pTypes[i] && !(fun.pTypes[i] == "int" && pTypes[i] == "byte")) return false;
+    if(fun.pTypes.size() != pTypes.size()) {
+        output::errorPrototypeMismatch(yylineno, name, fun.pTypes);
+        exit(0);
     }
-    return true;
+    for(size_t i = 0; i < pTypes.size(); i++){
+        if(fun.pTypes[i] != pTypes[i] && !(fun.pTypes[i] == "int" && pTypes[i] == "byte")) {
+            output::errorPrototypeMismatch(yylineno, name, fun.pTypes);
+            exit(0);
+        }
+    }
 }
 bool SymbolTable::isfunction(std::string name) {
-    return table.find(name)->second.returnType == "";
+    return table.find(name)->second.returnType != "";
 }
 
 YYSTYPE SymbolTable::getById(std::string name) {
@@ -83,4 +89,8 @@ std::string SymbolTable::getTypeById(std::string name) {
 
 void SymbolTable::setVal(std::string name, int val) {
     table.find(name)->second.val = val;
+}
+
+std::string SymbolTable::getRetTypeById(std::string name) {
+    return table.find(name)->second.returnType;
 }

@@ -81,12 +81,12 @@ Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
 		 | SWITCH LPAREN Exp RPAREN LBRACE CaseList RBRACE                  {printProductionRule(26);}
 ;
 
-Call : ID LPAREN ExpList RPAREN 											{printProductionRule(27);}
-	 | ID LPAREN RPAREN 													{printProductionRule(28);}
+Call : ID LPAREN ExpList RPAREN 											{$$ = funCall($1->name, $3->pTypes);}
+	 | ID LPAREN RPAREN 													{$$ = funCall($1->name, std::vector<std::string>());}
 ;
 
-ExpList : Exp 																{printProductionRule(29);}
-		| Exp COMMA ExpList 												{printProductionRule(30);}
+ExpList : Exp 																{$1->pTypes.push_back($1->type); $$ = $1;}
+		| Exp COMMA ExpList 												{$3->pTypes.push_back($1->type); $$ = $3;}
 ;
 
 Type : INT 																	{$$ = new Type("int");}

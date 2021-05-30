@@ -1,9 +1,12 @@
 int f(int q, int a, bool c){
-    int e = a;
+    int e = 250b + 6;
+    bool w = e < a;
 }
 void main(){
-    int y;
-    int x;
+    int a = 7;
+    f(5b + 6, true);
+    bool y;
+    bool x;
     {bool z;}
-    bool z = x;
+    bool z = true;
 }

@@ -17,7 +17,7 @@ extern int yylineno;
 
 bool symPrevDefined(std::string);
 void defMatchesUse(std::string, std::string);
-void defMatchesCall(std::string, std::string, std::vector<std::string>);
+YYSTYPE funCall(std::string name, std::vector<std::string> pTypes);
 
 void enterScopeSetup();
 void exitScopeActions();

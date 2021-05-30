@@ -56,17 +56,16 @@ void defMatchesUse(std::string name, std::string type) {
     exit(0);
 }
 
-void defMatchesCall(std::string name, std::string retType, std::vector<std::string> pTypes) {
+YYSTYPE funCall(std::string name, std::vector<std::string> pTypes) {
+    std::reverse(pTypes.begin(), pTypes.end());
     for(SymbolTable& table : symTableStack){
         if(!table.existsInTable(name)) continue;
         if(!table.isfunction(name)){
             output::errorUndefFunc(yylineno, name);
             exit(0);
         }
-        if(!table.funMatchesDefInTable(name, retType, pTypes)){
-            output::errorPrototypeMismatch(yylineno, name, pTypes);
-            exit(0);
-        }
+        table.funMatchesDefInTable(name, pTypes);
+        return new Exp(table.getRetTypeById(name));
     }
     output::errorUndefFunc(yylineno, name);
     exit(0);
@@ -190,6 +189,7 @@ void changeValOfVar(std::string name, int val) {
 
 
 }
+
 
 
 
