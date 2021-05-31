@@ -1,0 +1,9 @@
+//tests TypeRules #13 printi function accepts only byte or int arguments
+
+void main() {
+   byte x;
+   {
+       int y = x + 20b;
+   }
+   printi("just a string");
+}

@@ -1,0 +1,12 @@
+//SemanticCheck #4, only single main, with no args and return void.
+int main(int a) {
+    return 1;
+}
+
+void f() {
+    return;
+}
+
+void main() {
+    return;
+}

@@ -1,0 +1,6 @@
+//tests TypeRules #4, variable type defined by type statement:
+void main() {
+    int x;
+    bool y;
+    byte z;
+}

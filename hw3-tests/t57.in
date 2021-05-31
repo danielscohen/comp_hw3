@@ -1,0 +1,25 @@
+//errorPrototypeMismatch.
+int f1(int a1, bool a2) {
+    int x;
+    return x;
+}
+
+bool f2() {
+    int x1;
+    bool x2;
+    f1(x1, x2, true);
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    int x1 = 1;
+    int x2 = 2;
+    int x3 = ((2)/(x1));
+    bool b1 = x1 != x2;
+    bool b2 = (1 == 1);
+    bool b3 = f1() >= x3;
+    b1 = x1 > x2 and x3 <= x1;
+}

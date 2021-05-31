@@ -1,0 +1,10 @@
+//tests TypeRules #1:
+void main() {
+    int a = 1;
+    a = 2;
+    int bb = 2;
+    int c = (a + bb) * bb / a;
+    byte d = 2 b;
+    d = 1b;
+    byte e = 2b*d;
+}

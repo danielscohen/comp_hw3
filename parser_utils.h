@@ -19,8 +19,8 @@ bool symPrevDefined(std::string);
 void defMatchesUse(std::string, std::string);
 YYSTYPE funCall(std::string name, std::vector<std::string> pTypes);
 
-void enterScopeSetup();
-void exitScopeActions();
+void enterScope(std::string scopeType);
+void exitScope();
 void printProductionRule(int a);
 void prevDefCheck(std::string name);
 void addFunDef(std::string retType, std::string name, std::vector<std::string> pNames, std::vector<std::string> pTypes);
@@ -40,5 +40,10 @@ void printpNames(std::string pNames);
 std::string getTypeById(std::string Id);
 void changeValOfVar(std::string Id, int val);
 void checkRetMatchesFunc(std::string type);
+void checkBreak();
+void checkContinue();
+void checkForMain();
+
+
 
 #endif //PROJECTNAME_PARSER_UTILS_H

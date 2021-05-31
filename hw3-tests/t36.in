@@ -1,0 +1,35 @@
+//tests SemanticCheck #1, continue/break only in while.
+int f1() {
+    while (true) break;
+    int x;
+    return x;
+}
+
+bool f2() {
+    while (f2()) {
+        while (true) {
+            if (true) {
+                int y = 2;
+                continue;
+            }
+        }
+        break;
+    }
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    f2();
+    f1();
+    while (false) {
+        break;
+    }
+    switch (1) {
+    default:
+        break;
+    }
+}

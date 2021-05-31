@@ -103,3 +103,17 @@ void SymbolTable::checkRetMatchesFunc(std::string type) {
         exit(0);
     }
 }
+
+SymbolTable::SymbolTable(const string &scopeType ) : scopeType(scopeType) {}
+
+std::string SymbolTable::getScopeType() {
+    return scopeType;
+}
+
+void SymbolTable::checkForMain() {
+    auto mainf = table.find("main");
+    if(mainf != table.end() && mainf->second.returnType == "VOID" && mainf->second.pTypes.empty()) return;
+
+    output::errorMainMissing();
+    exit(0);
+}

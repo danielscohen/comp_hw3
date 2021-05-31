@@ -1,0 +1,12 @@
+void main() {
+	int x;
+	int y = 3;
+	int z = 10b;
+    byte bi;
+}
+
+int idan(int a, bool bb) {
+	int x = 1 + 2 + 3;
+	int y = 100;
+	int z = 5 + x + y;
+}

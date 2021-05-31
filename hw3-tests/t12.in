@@ -1,0 +1,19 @@
+//tests TypeRules #5, call type determined by its returnType:
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    int x1 = f1();
+    bool x2 = f2();
+    byte x3 = f3();
+}

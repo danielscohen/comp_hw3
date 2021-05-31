@@ -1,0 +1,17 @@
+//tests TypeRules #10, Binop gets 2 numerical and return numerical.
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    int x1 = "abc" + "abc";
+}

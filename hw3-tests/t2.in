@@ -1,0 +1,20 @@
+
+int return6() {
+    int x = 42;
+    switch (x) {
+      case 12: int y; break;
+      case 42: return 6; break;
+      default: int z; break;
+    }
+    return 12;
+}
+
+void main() {
+    bool c = true;
+    if (not c) {
+        int x = 6;
+        printi(x);
+    }
+    else
+        syntax error;
+}

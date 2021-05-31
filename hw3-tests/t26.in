@@ -1,0 +1,6 @@
+//tests TypeRules #11 string expression can be used only with print function.
+
+void main() {
+   byte x;
+   print(x);
+}

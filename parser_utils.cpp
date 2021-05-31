@@ -9,8 +9,8 @@
 std::vector<SymbolTable> symTableStack;
 std::vector<int> offsetStack;
 
-void enterScopeSetup() {
-    symTableStack.push_back(SymbolTable());
+void enterScope(std::string scopeType) {
+    symTableStack.push_back(SymbolTable(scopeType));
     if(offsetStack.empty()){
         offsetStack.push_back(0);
     }
@@ -18,7 +18,7 @@ void enterScopeSetup() {
 
 }
 
-void exitScopeActions() {
+void exitScope() {
     symTableStack.back().printTable();
     symTableStack.pop_back();
     offsetStack.pop_back();
@@ -85,7 +85,7 @@ addFunDef(std::string retType, std::string name, std::vector<std::string> pNames
     std::reverse(pNames.begin(), pNames.end());
     std::reverse(pTypes.begin(), pTypes.end());
     symTableStack.back().insert(name, retType, pTypes, 0);
-    enterScopeSetup();
+    enterScope("");
     for(int i = 0; i < (int)pNames.size(); i++){
         symTableStack.back().insert(pNames[i], pTypes[i], 0, -i - 1);
     }
@@ -198,6 +198,32 @@ void checkRetMatchesFunc(std::string type) {
     SymbolTable gTable = symTableStack[0];
     gTable.checkRetMatchesFunc(type);
 
+}
+
+void checkBreak() {
+    std::vector<SymbolTable>::reverse_iterator table = symTableStack.rbegin();
+    while(table != symTableStack.rend()){
+        if(table->getScopeType() == "WHILE" || table->getScopeType() == "SWITCH") return;
+        table++;
+    }
+
+    output::errorUnexpectedBreak(yylineno);
+    exit(0);
+}
+
+void checkContinue() {
+    std::vector<SymbolTable>::reverse_iterator table = symTableStack.rbegin();
+    while(table != symTableStack.rend()){
+        if(table->getScopeType() == "WHILE") return;
+        table++;
+    }
+
+    output::errorUnexpectedContinue(yylineno);
+    exit(0);
+}
+
+void checkForMain() {
+    symTableStack.back().checkForMain();
 }
 
 

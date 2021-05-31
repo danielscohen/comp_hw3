@@ -29,9 +29,11 @@ class SymbolTable{
 
     std::map<std::string, SymTableEntry> table;
     std::vector<std::string> insertionList;
+    std::string scopeType;
     void getParamTypes(ParamList, std::vector<std::string>&);
 
 public:
+    SymbolTable(const std::string &scopeType);
 
     void printTable();
     void insert(std::string name, std::string type, int val, int offset);
@@ -45,6 +47,8 @@ public:
     void setVal(std::string name, int val);
     std::string getRetTypeById(std::string name);
     void checkRetMatchesFunc(std::string type);
+    std::string getScopeType();
+    void checkForMain();
 
 
 

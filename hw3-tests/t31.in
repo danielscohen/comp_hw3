@@ -1,0 +1,17 @@
+//tests TypeRules #14 function accepts only right caltable types
+byte f1(int x, byte y) {
+    return y + 5b;
+}
+
+int f2(int x, byte y) {
+   return x * y;
+}
+
+void main() {
+   {
+       byte x = f1(100, 10b);
+       int y  = f1(100, 10b);
+   }
+   int y  = f2(100, 10b);
+   byte x = f2(100, 10b);
+}

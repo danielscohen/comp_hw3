@@ -1,0 +1,7 @@
+void f(string a) {
+    return;
+}
+
+void main() {
+    return;
+}

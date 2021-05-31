@@ -44,7 +44,7 @@ Funcs :	/*epsilon*/													        {printProductionRule(2);}
 	  | FuncDecl Funcs 														{printProductionRule(3);}
 ;
 
-FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE {addFunDef($1->name, $2->name, $4->pNames, $4->pTypes);} Statements RBRACE 		{exitScopeActions();}
+FuncDecl : RetType ID LPAREN Formals RPAREN LBRACE {addFunDef($1->name, $2->name, $4->pNames, $4->pTypes);} Statements RBRACE 		{exitScope();}
 ;
 
 RetType : Type 																{$$ = $1;}
@@ -66,7 +66,7 @@ Statements : Statment 														{printProductionRule(12);}
 		   | Statements Statment 											{printProductionRule(13);}
 ;
 
-Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
+Statment : LBRACE {enterScope("");} Statements RBRACE 		{exitScope();}
 		 | Type ID SC 														{prevDefCheck($2->name); addVarToSymTable($1->name, $2->name, 0);}
 		 | Type ID ASSIGN Exp SC 											{prevDefCheck($2->name); checkTypeMatch($1->name, $4->type); addVarToSymTable($1->name, $2->name, $4->val);}
 		 | ID ASSIGN Exp SC 												{ checkTypeMatch(getTypeById($1->name), $3->type);  changeValOfVar($1->name, $3->val);}
@@ -74,20 +74,23 @@ Statment : LBRACE {enterScopeSetup();} Statements RBRACE 		{exitScopeActions();}
 		 | RETURN SC 														{checkRetMatchesFunc("VOID");}
 		 | RETURN Exp SC 													{checkRetMatchesFunc($2->type);}
 		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 %prec HELSE 									
-		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 ELSE {enterScopeSetup();} Statment {exitScopeActions();} 						
-		 | WHILE LPAREN Exp M1 RPAREN M2 Statment M3 								{printProductionRule(23);}
-		 | BREAK SC 														{printProductionRule(24);}
-		 | CONTINUE SC 														{printProductionRule(25);}
-		 | SWITCH LPAREN Exp {checkRelop($3, $3);} RPAREN LBRACE {enterScopeSetup();} CaseList RBRACE {exitScopeActions();}                 {printProductionRule(26);}
+		 | IF LPAREN Exp M1 RPAREN M2 Statment M3 ELSE {enterScope("");} Statment {exitScope();} 						
+		 | WHILE LPAREN Exp M1 RPAREN M4 Statment M3 								
+		 | BREAK SC 														{checkBreak();}
+		 | CONTINUE SC 														{checkContinue();}
+		 | SWITCH LPAREN Exp {checkRelop($3, $3);} RPAREN LBRACE {enterScope("SWITCH");} CaseList RBRACE {exitScope();}                 {printProductionRule(26);}
 ;
 
 M1 : /* epsilon */															{YYSTYPE e = yyvsp[0]; checkBool(e, e);}											
 ;
 
-M2 : /* epsilon */															{enterScopeSetup();}											
+M2 : /* epsilon */															{enterScope("");}											
 ;
 
-M3 : /* epsilon */															{exitScopeActions();}											
+M3 : /* epsilon */															{exitScope();}											
+;
+
+M4 : /* epsilon */															{enterScope("WHILE");}											
 ;
 
 Call : ID LPAREN ExpList RPAREN 											{$$ = funCall($1->name, $3->pTypes);}
@@ -139,11 +142,12 @@ CaseDecl : CASE NUM COLON Statements	                                    {printP
 int main()
 {
 	/* yydebug = 1; */
-	enterScopeSetup();
+	enterScope("");
 	addFunDefPrint("VOID", "print", std::vector<std::string>(), std::vector<std::string>{"STRING"} );
 	addFunDefPrint("VOID", "printi", std::vector<std::string>(), std::vector<std::string>{"INT"} );
 	int parseRes = yyparse();
-	exitScopeActions();
+	checkForMain();
+	exitScope();
     return parseRes;
 }
 

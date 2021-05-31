@@ -1,0 +1,20 @@
+//tests TypeRules #10, Binop gets 2 numerical and return numerical.
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    int x1 = f1() + f3();
+    int x2 = 2*f1();
+    byte x3 = f3() / f3();
+    x1 = f1() + 5 * 3 / 2b + (3*f3() +x3);
+}

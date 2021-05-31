@@ -1,0 +1,7 @@
+//tests TypeRules #2, true\false type:
+void main() {
+    bool x = true;
+    bool y = false;
+    bool z = x;
+    z = x;
+}

@@ -1,0 +1,17 @@
+//tests TypeRules #9, logic get 2 bools and return bool.
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    bool a = 1b and false;
+}

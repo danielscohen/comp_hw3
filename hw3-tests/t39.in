@@ -1,0 +1,33 @@
+//tests SemanticCheck #2, make sure that return value corresponds to function declaration.
+int f1() {
+    int x;
+    return x;
+    return 1;
+    return f1();
+    return;
+}
+
+bool f2() {
+    bool x;
+    return true;
+    return f2();
+    return x;
+}
+
+byte f3() {
+    byte x;
+    return 123b;
+    return f3();
+    return x;
+}
+
+void main() {
+    int x1 = 1;
+    int x2 = 2;
+    int x3 = ((2)/(x1));
+    bool b1 = x1 != x2;
+    bool b2 = (1 == 1);
+    bool b3 = f1() >= x3;
+    b1 = x1 > x2 and x3 <= x1;
+    return;
+}

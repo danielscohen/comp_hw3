@@ -1,0 +1,4 @@
+//SemanticCheck #4, only single main, with no args and return void.
+int main() {
+    return 1;
+}

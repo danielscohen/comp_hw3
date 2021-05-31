@@ -1,12 +1,10 @@
 int f(int q, int a, bool c){
-    int e = 250b + 6;
-    bool w = e < a;
-    if (false){ int i = 36;}
+    switch (5){ case 2:  break;}
 }
 int h(){
     int a;
 }
-void main(){
+void main(int w){
     h();
     int a = 7;
     f(3,5b + 6, true);

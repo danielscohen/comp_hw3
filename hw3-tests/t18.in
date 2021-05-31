@@ -1,0 +1,17 @@
+//tests TypeRules #8, Relop gets 2 ints and return bool.
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    int x1 = 1 == 1;
+}

@@ -1,0 +1,18 @@
+//tests SemanticCheck #3, byte value <= 255.
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    byte x = 255b;
+    byte a = 256b;
+}

@@ -1,0 +1,4 @@
+//tests TypeRules #2, true\false type:
+void main() {
+    bool x = 1;
+}

@@ -1,0 +1,17 @@
+//tests TypeRules #11, string expression can be used only with print function.
+int f1() {
+    int x;
+    return x;
+}
+
+bool f2() {
+    return true;
+}
+
+byte f3() {
+ return 123b;
+}
+
+void main() {
+    string a = 1;
+}

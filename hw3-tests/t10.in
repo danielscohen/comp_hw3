@@ -1,0 +1,4 @@
+//tests TypeRules #3, string:
+void main() {
+    print("abc");
+}
